@@ -1,6 +1,6 @@
 import React from "react";
 import { polar2Canvas } from "react-native-redash";
-import { Circle, Line, G, Text } from "react-native-svg";
+import { Circle, Line, G, Text, Svg } from "react-native-svg";
 import MoonAlarm from '../assets/moonAlarm.svg'
 import SunAlarm from '../assets/sunAlarm.svg'
 

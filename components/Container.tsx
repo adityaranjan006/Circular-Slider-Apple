@@ -1,7 +1,6 @@
 import React, { ReactNode } from "react";
-import { StyleSheet, View } from "react-native";
-import Animated, { useDerivedValue } from "react-native-reanimated";
-import { ReText } from "react-native-redash";
+import { StyleSheet, View, Text } from "react-native";
+import Animated, { useDerivedValue, useAnimatedProps } from "react-native-reanimated";
 
 import {
   PADDING,
@@ -11,6 +10,7 @@ import {
 } from "../Constants";
 
 import Label from "./Label";
+
 
 interface ContainerProps {
   start: Animated.SharedValue<number>;
@@ -43,6 +43,13 @@ const Container = ({ start, end, children }: ContainerProps) => {
     const d = absoluteDuration(start.value, end.value);
     return formatDuration2(radToMinutes(d));
   });
+
+  const durationTextProps = useAnimatedProps(() => {
+    return {
+      text: duration.value
+    };
+  });
+
   return (
     <View style={styles.container}>
       {children}
@@ -50,7 +57,6 @@ const Container = ({ start, end, children }: ContainerProps) => {
         <Label theta={end} label="BEDTIME" icon="bed" />
         <Label theta={start} label="WAKE UP" icon="bell" />
       </View>
-      {/* <ReText style={styles.duration} text={duration} /> */}
     </View>
   );
 };

@@ -1,30 +1,25 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Text, View, StyleSheet } from 'react-native';
 
 interface TimerTextProps {
   minutesLong: number;
 }
 
-export default class TimerText extends Component<TimerTextProps> {
+const TimerText = ({ minutesLong, ...rest }: TimerTextProps) => {
+  const hours = Math.floor(minutesLong / 60);
+  const minutes = minutesLong - hours * 60;
 
-  render() {
-    const { minutesLong, ...rest } = this.props;
-
-    const hours = Math.floor(minutesLong / 60);
-    const minutes = minutesLong - hours * 60;
-
-    return (
-      <View {...rest}>
-        <View style={styles.timerContainer}>
-          <Text style={styles.time}>{hours}</Text>
-          <Text style={styles.text}>HR</Text>
-          <Text style={[styles.time, styles.span]}>{minutes}</Text>
-          <Text style={styles.text}>MIN</Text>
-        </View>
+  return (
+    <View {...rest}>
+      <View style={styles.timerContainer}>
+        <Text style={styles.time}>{hours}</Text>
+        <Text style={styles.text}>HR</Text>
+        <Text style={[styles.time, styles.span]}>{minutes}</Text>
+        <Text style={styles.text}>MIN</Text>
       </View>
-    );
-  }
-}
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   timerContainer: {
@@ -47,3 +42,5 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
 });
+
+export default TimerText;

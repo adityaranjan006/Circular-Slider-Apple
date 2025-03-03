@@ -46,7 +46,7 @@ const CircularSlider = ({ start, end, minAngleSeparation }: CircularProps) => {
     };
   });
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
+    <GestureHandlerRootView style={{ flex: 1}}>
       <View>
         <Svg width={SIZE} height={SIZE}>
           <Defs>

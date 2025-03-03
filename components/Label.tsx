@@ -1,10 +1,9 @@
-import React, { ComponentProps } from "react";
+import React, { ComponentProps, useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { FontAwesome as Icon } from "@expo/vector-icons";
-import Animated, { useDerivedValue } from "react-native-reanimated";
-import { ReText } from "react-native-redash";
+import Animated, { useAnimatedReaction, runOnJS } from "react-native-reanimated";
 
-import { formatDuration, radToMinutes } from "../Constants";
+import { radToMinutes } from "../Constants";
 
 const styles = StyleSheet.create({
   container: {
@@ -15,7 +14,7 @@ const styles = StyleSheet.create({
   },
   time: {
     color: "white",
-    fontSize: 24,
+    fontSize: 14,
     fontFamily: "SFProRounded-Semibold",
   },
   label: {
@@ -31,17 +30,46 @@ interface LabelProps {
 }
 
 const Label = ({ theta, label, icon }: LabelProps) => {
-  const time = useDerivedValue(() => {
-    const minutes = radToMinutes(theta.value);
-    return formatDuration(minutes);
-  });
+  const [timeDisplay, setTimeDisplay] = useState("00:00");
+  
+  const updateTime = (rawMinutes: number) => {
+    try {
+      const totalMinutes = isNaN(rawMinutes) ? 0 : Math.round(rawMinutes);
+
+      const hours = Math.floor(totalMinutes / 60);
+      const minutes = Math.floor(totalMinutes % 60);
+      
+      const hoursStr = hours.toString().padStart(2, "0");
+      const minutesStr = minutes.toString().padStart(2, "0");
+      
+      setTimeDisplay(`${hoursStr}:${minutesStr}`);
+    } catch (e) {
+      setTimeDisplay("00:00");
+    }
+  };
+  
+  useAnimatedReaction(
+    () => theta.value,
+    (currentValue, previousValue) => {
+      if (currentValue !== previousValue) {
+        const minutes = radToMinutes(currentValue);
+        runOnJS(updateTime)(minutes);
+      }
+    },
+    [theta]
+  );
+  
+  React.useEffect(() => {
+    updateTime(radToMinutes(theta.value));
+  }, []);
+  
   return (
     <View style={styles.container}>
       <Text style={styles.row}>
         <Icon name={icon} size={16} />
         <Text style={styles.label}>{"\u00A0" + label}</Text>
       </Text>
-      <ReText style={styles.time} text={time} />
+      <Text style={styles.time}>{timeDisplay}</Text>
     </View>
   );
 };

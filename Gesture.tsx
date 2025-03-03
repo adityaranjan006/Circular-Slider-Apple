@@ -4,7 +4,11 @@ import {
   PanGestureHandler,
   PanGestureHandlerGestureEvent,
 } from "react-native-gesture-handler";
-import Animated, { useAnimatedGestureHandler, runOnJS } from "react-native-reanimated";
+import Animated, { 
+  useAnimatedGestureHandler, 
+  runOnJS, 
+  useSharedValue 
+} from "react-native-reanimated";
 import { canvas2Polar, Vector } from "react-native-redash";
 import * as Haptics from 'expo-haptics';
 
