@@ -1,6 +1,6 @@
 import React from "react";
 import { polar2Canvas } from "react-native-redash";
-import { Circle, Line, G, Text, Svg } from "react-native-svg";
+import { Circle, Line, G, Text, Svg, Defs, LinearGradient, Stop } from "react-native-svg";
 import MoonAlarm from '../assets/moonAlarm.svg'
 import SunAlarm from '../assets/sunAlarm.svg'
 
@@ -12,6 +12,12 @@ const DELTA = TAU / LINES;
 const Quadrant = () => {
   return (
     <>
+      <Defs>
+        <LinearGradient id="circleGradient" x1="0" y1="0" x2="0" y2="1">
+          <Stop offset="0" stopColor="#AEAEAE" />
+          <Stop offset="1" stopColor="#5D5D5D" />
+        </LinearGradient>
+      </Defs>
       <Circle
         strokeWidth={STROKE}
         stroke="#1C1B1D"
@@ -20,15 +26,15 @@ const Quadrant = () => {
         r={R}
       />
       <G mask="url(#mask)">
-        <Circle fill="#5D5D5D" cx={SIZE / 2} cy={SIZE / 2} r={R + PADDING} strokeLinecap="round" />
+        <Circle fill="url(#circleGradient)" cx={SIZE / 2} cy={SIZE / 2} r={R + PADDING} strokeLinecap="round" />
         {new Array(LINES).fill(0).map((_, i) => {
           const theta = DELTA * i;
-          const p1 = polar2Canvas({ theta, radius: R - PADDING / 2 }, CENTER);
-          const p2 = polar2Canvas({ theta, radius: R + PADDING / 2 }, CENTER);
+          const p1 = polar2Canvas({ theta, radius: R - PADDING / 3 }, CENTER);
+          const p2 = polar2Canvas({ theta, radius: R + PADDING / 3 }, CENTER);
           return (
             <Line
               stroke="#000000"
-              strokeWidth={4}
+              strokeWidth={3}
               strokeLinecap="round"
               key={i}
               x1={p1.x}

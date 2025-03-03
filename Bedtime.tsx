@@ -22,13 +22,11 @@ const styles = StyleSheet.create({
   },
 });
 
-// Minimum angle separation (60 degrees in radians)
-const MIN_ANGLE_SEPARATION = PI / 6;
+const MIN_ANGLE_SEPARATION = PI / 7;
 
 const Bedtime = () => {
-  // Initialize with values that are clearly separated
-  const start = useSharedValue(3*PI/2); // 9 o'clock (bedtime)
-  const end = useSharedValue(5*PI/6);    // 3 o'clock (wake up time)
+  const start = useSharedValue(3*PI/2);
+  const end = useSharedValue(5*PI/6);    
   
   return (
     <View style={styles.container}>
