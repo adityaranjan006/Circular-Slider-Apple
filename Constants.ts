@@ -3,8 +3,9 @@ import { Vector } from "react-native-redash";
 
 const { width } = Dimensions.get("window");
 export const PADDING = 24;
-export const SIZE = width - PADDING * 2;
-export const STROKE = 50;
+export const MARGIN = 12;
+export const SIZE = width - PADDING * 2 - MARGIN * 2;
+export const STROKE = 40;
 export const R = (SIZE - STROKE) / 2;
 export const { PI } = Math;
 export const TAU = 2 * PI;

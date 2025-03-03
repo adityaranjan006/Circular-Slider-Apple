@@ -32,7 +32,6 @@ const Bedtime = () => {
   
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Next Wake Up Only</Text>
       <Container start={start} end={end}>
         <CircularSlider 
           start={start} 

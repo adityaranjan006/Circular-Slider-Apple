@@ -21,13 +21,16 @@ interface ContainerProps {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#2C2B2D",
-    borderRadius: 16,
-    padding: PADDING,
+    borderRadius: 20,
+    paddingHorizontal:10,
+    paddingVertical: 10,
     justifyContent: "center",
   },
   values: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "space-around",
+    paddingBottom: 16,
+
   },
   duration: {
     fontFamily: "SFProRounded-Medium",
